@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Ionic App</title>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-analytics.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyCRKOwC5dw6ORWchWDK-DNuxrNKRHI416A",
+        authDomain: "capstone-b22222.firebaseapp.com",
+        databaseURL: "https://capstone-b22222.firebaseio.com",
+        projectId: "capstone-b22222",
+        storageBucket: "capstone-b22222.appspot.com",
+        messagingSenderId: "565738880854",
+        appId: "1:565738880854:web:7d9ee4465cb7ea305120f7",
+        measurementId: "G-G5LC6NXFJ4"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+    </script>
+
+    <base href="/" />
+
+    <meta
+      name="viewport"
+      content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+
+    <link rel="icon" type="image/png" href="assets/icon/favicon.png" />
+
+    <!-- add to homescreen for ios -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+    <script src="cordova.js"></script>
+    <!-- <script src="assets/js/index.js"></script> -->
+  </head>
+
+  <body>
+    <app-root></app-root>
+  </body>
+</html>

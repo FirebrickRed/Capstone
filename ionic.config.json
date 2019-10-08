@@ -1,0 +1,9 @@
+{
+  "name": "Capstone",
+  "integrations": {
+    "cordova": {},
+    "capacitor": {}
+  },
+  "type": "angular",
+  "id": "2b374999"
+}

@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      To-Do List
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list no-lines>
+    <ion-item *ngFor='let item of items'>
+      <ion-item-sliding lines='full' detail>
+        <h3>{{ item.Name }}</h3>
+        <p>{{ item.Desc }}</p>
+      </ion-item-sliding>
+    </ion-item>
+  </ion-list>
+  <ion-button padding (click)="addItem()" expand="block" color="primary">
+    <ion-icon name="add-circle-outline"></ion-icon>
+    Add New Item
+  </ion-button>
+</ion-content>
