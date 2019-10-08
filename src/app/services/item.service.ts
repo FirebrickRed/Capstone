@@ -13,7 +13,7 @@ export class ItemService {
   }
 
   read_Items(userId){
-    return this.firestore.collection('users/'+userId).snapshotChanges();
+    return this.firestore.collection('users/'+userId+'/ToDoItems').snapshotChanges();
   }
 
   update_Item(recordID, record){

@@ -21,13 +21,7 @@ export class Tab2Page {
     public navCtrl: NavController, 
     public afAuth: AngularFireAuth,
     public iService: ItemService
-    ) {
-    console.log(this.afAuth.auth.currentUser);
-    if(this.afAuth.auth.currentUser == null){
-      console.log('no user detected');
-      this.logMeIn();
-    }
-  }
+    ) {  }
 
   ngOnInit(){
     this.iService.read_Items(this.afAuth.auth.currentUser.uid).subscribe(data => {
@@ -43,12 +37,6 @@ export class Tab2Page {
       console.log(this.items);
       console.log(this.afAuth.auth.currentUser.uid);
     })
-  }
-
-  logMeIn(){
-    this.navCtrl.navigateRoot('login');
-    console.log('login-end');
-    console.log(this.afAuth.auth.currentUser);
   }
 
   async addItem() {

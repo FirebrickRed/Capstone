@@ -5,22 +5,20 @@
 </ion-header>
 
 <ion-content padding>
-  <form #log="ngForm" (ngSubmit)="login()">
+  <form #log="ngForm" (ngSubmit)="authService.login(username.value, password.value)">
     <ion-item>
       <ion-label position="floating">Username</ion-label>
       <ion-input
         required
-        [(ngModel)]="user.username"
-        name="username"
         type="email"
+        #username
       ></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Password</ion-label>
       <ion-input
         required
-        [(ngModel)]="user.password"
-        name="password"
+        #password
         type="password"
       ></ion-input>
     </ion-item>
