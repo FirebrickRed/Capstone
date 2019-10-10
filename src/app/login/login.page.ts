@@ -25,17 +25,6 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
-  // async login(){
-  //   await this.afAuth.auth.signInWithEmailAndPassword(this.user.username, this.user.password)
-  //     .then( res => {
-        
-  //       this.navCtrl.navigateRoot('tabs/tab2');
-  //       console.log(this.afAuth.auth.currentUser);
-  //   }, err => {
-  //     console.log(err);
-  //   })
-  // }
-
   signUp() {
     console.log("Click!!");
     this.navCtrl.navigateRoot('signup');

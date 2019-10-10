@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
+import { snapshotChanges } from '@angular/fire/database';
 
 @Injectable({
   providedIn: 'root'
@@ -12,15 +13,39 @@ export class ItemService {
     return this.firestore.collection('users/'+userId+'/ToDoItems').add(record);
   }
 
+  create_NewCharacter(record, userId){
+    return this.firestore.collection(`users/${userId}/Character`).add(record);
+  }
+
   read_Items(userId){
     return this.firestore.collection('users/'+userId+'/ToDoItems').snapshotChanges();
   }
 
-  update_Item(recordID, record){
-    this.firestore.doc('Students/'+recordID).update(record);
+  read_SingleItem(userId, itemId){
+    return this.firestore.collection(`users/${userId}/ToDoItems/${itemId}`).snapshotChanges();
   }
 
-  delete_Item(recordID){
-    this.firestore.doc('Students/'+recordID).delete();
+  read_Character(userId){
+    return this.firestore.collection(`users/${userId}/Character`).snapshotChanges();
   }
+
+  update_SingleItem(userId, itemId, record){
+    this.firestore.doc(`users/${userId}/ToDoItems/${itemId}`).update(record);
+  }
+
+  update_Character(userId, charId, record){
+    this.firestore.doc(`users/${userId}/Character/${charId}`).update(record);
+  }
+
+  delete_SingleItem(userId, itemId){
+    this.firestore.doc(`users/${userId}/ToDoItems/${itemId}`).delete();
+  }
+
+  // update_Student(recordID, record){
+  //   this.firestore.doc('Students/'+recordID).update(record);
+  // }
+
+  // delete_Student(recordID){
+  //   this.firestore.doc('Students/'+recordID).delete();
+  // }
 }

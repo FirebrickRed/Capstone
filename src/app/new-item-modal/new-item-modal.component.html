@@ -11,24 +11,69 @@
 
 <ion-content>
   <!-- <ion-list> -->
-    <form #form="ngForm" (ngSubmit)='addItem(form.value)'>
+  <form #form="ngForm" (ngSubmit)="addItem(form.value)">
     <ion-item>
       <ion-label position="floating">Item Name</ion-label>
-      <ion-input required [(ngModel)]="itemName" name="itemName" type="text" ></ion-input>
+      <ion-input
+        required
+        [(ngModel)]="itemName"
+        name="itemName"
+        type="text"
+      ></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Item Description</ion-label>
-      <ion-input [(ngModel)]="itemDesc" name="itemDesc" type="text"></ion-input>
+      <ion-input
+        required
+        [(ngModel)]="itemDesc"
+        name="itemDesc"
+        type="text"
+      ></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Due Date</ion-label>
-      <ion-datetime [(ngModel)]="itemDueDate" name="itemDueDate" display-format="MMM D"></ion-datetime>
+      <ion-datetime
+        required
+        [(ngModel)]="itemDueDate"
+        name="itemDueDate"
+        display-format="MMM D"
+      ></ion-datetime>
+    </ion-item>
+    <ion-item>
+      Difficulty
+      <ion-radio-group name='difficulty' [(ngModel)]="difficulty">
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label>Easy</ion-label>
+              <ion-radio mode="md" item-left value="easy"></ion-radio>
+            </ion-item>
+          </ion-col>
+
+          <ion-col>
+            <ion-item>
+              <ion-label>Medium</ion-label>
+              <ion-radio mode="md" item-left value="medium"></ion-radio>
+            </ion-item>
+          </ion-col>
+
+          <ion-col>
+            <ion-item>
+              <ion-label>Hard</ion-label>
+              <ion-radio mode="md" item-left value="hard"></ion-radio>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-radio-group>
     </ion-item>
     <!-- <ion-item>
       <ion-label position='floating'>Time Due</ion-label>
       <ion-datetime [(ngModel)]="item.itemDueTime" name="itemDueTime" display-format='h a'></ion-datetime>
     </ion-item> -->
     <ion-button type="submit" [disabled]="form.invalid">Submit</ion-button>
-    </form>
+  </form>
   <!-- </ion-list> -->
 </ion-content>
+
+<!-- <button clear (click)="incrementQty()"><ion-icon name="add-circle" ></ion-icon></button>{{qty}}
+        <button clear (click)="decrementQty()"><ion-icon name="remove-circle" ></ion-icon></button> -->

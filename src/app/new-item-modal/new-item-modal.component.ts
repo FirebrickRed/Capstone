@@ -14,6 +14,9 @@ export class NewItemModalComponent implements OnInit {
   itemName: string;
   itemDesc: string;
   itemDueDate: Date;
+  difficulty: string;
+  toDelete: boolean;
+  id: string
 
   constructor(
     public modalCtrl : ModalController,
@@ -24,14 +27,28 @@ export class NewItemModalComponent implements OnInit {
   ngOnInit() {}
 
   closeModal(){
-    this.modalCtrl.dismiss();
-    console.log('close');
+    this.modalCtrl.dismiss(true);
   }
   addItem(){
+    console.log(this.difficulty);
+    let xp = 0;
+    switch(this.difficulty){
+      case 'easy':
+        xp = 5;
+        break;
+      case 'medium':
+        xp = 10;
+        break;
+      case 'hard':
+        xp = 15;
+        break;
+    }
+    console.log(xp);
     let record = {};
     record['Name'] = this.itemName;
     record['Desc'] = this.itemDesc;
     record['DueDate'] = this.itemDueDate;
+    record['XP'] = xp;
     this.iService.create_NewItem(record, this.afAuth.auth.currentUser.uid)
       .then(resp => {
         this.itemName = "";
@@ -42,8 +59,9 @@ export class NewItemModalComponent implements OnInit {
       .catch(err => {
         console.log(err);
       });
-
-
+    if(this.toDelete){
+      this.iService.delete_SingleItem(this.afAuth.auth.currentUser.uid, this.id);
+    } 
     this.listOfItems.push(this.item);
     this.modalCtrl.dismiss(this.item);
   }

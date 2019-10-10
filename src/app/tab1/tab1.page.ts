@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {CrudService} from '../services/crud.service';
 
 @Component({
   selector: 'app-tab1',
@@ -7,63 +6,81 @@ import {CrudService} from '../services/crud.service';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
+  public timeBegan = null;
+  public timeStopped:any = null;
+  public stoppedDuration:any = 0;
+  public started = null;
+  public running = false;
 
-  students: any;
-  studentName: string;
-  studentAge: number;
-  studentAddress: string;
+  public blankTime = '00:00.00';
+  public time = '00:00.00';
 
-  constructor(private crudService: CrudService) {}
-
-  ngOnInit(){
-    this.crudService.read_Students().subscribe(data => {
-      this.students = data.map(e => {
-        return {
-          id: e.payload.doc.id,
-          isEdit: false,
-          Name: e.payload.doc.data()['Name'],
-          Age: e.payload.doc.data()['Age'],
-          Address: e.payload.doc.data()['Address'],
-        };
-      })
-      console.log(this.students);
-    })
+  restart(){
+    this.timeBegan = null;
+    this.timeStopped = null;
+    this.stoppedDuration = 0;
+    this.started = null;
+    this.running = false;
+    this.blankTime = '00:00.00';
+    this.time = '00:00.00';
   }
 
-  CreateRecord() {
-    let record = {};
-    record['Name'] = this.studentName;
-    record['Age'] = this.studentAge;
-    record['Address'] = this.studentAddress;
-    this.crudService.create_NewStudent(record)
-      .then(resp => {
-        this.studentName = "";
-        this.studentAge = undefined;
-        this.studentAddress = "";
-        console.log(resp);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+  start() {
+    console.log('begining of start');
+    if(this.running){
+      console.log('why you in here');
+      return;
+    }
+
+    if(this.timeBegan === null){
+      console.log('in time begain')
+      this.reset();
+      this.timeBegan = new Date();
+    }
+
+    if (this.timeStopped !== null) {
+      console.log('in time stopped');
+      let newStoppedDuration:any = (+new Date() - this.timeStopped);
+      this.stoppedDuration = this.stoppedDuration + newStoppedDuration;
+    }
+
+    this.started = setInterval(this.clockRunning.bind(this), 10);
+    this.running = true;
   }
 
-  RemoveRecord(rowID){
-    this.crudService.delete_Student(rowID);
+  stop() {
+    console.log('begining of start');
+    this.running = false;
+    this.timeStopped = new Date();
+    clearInterval(this.started);
   }
 
-  EditRecord(record){
-    record.isEdit = true;
-    record.EditName = record.Name;
-    record.EditAge = record.Age;
-    record.EditAddress = record.Address;
+  reset() {
+    console.log('begining of reset');
+    this.running = false;
+    clearInterval(this.started);
+    this.stoppedDuration = 0; 
+    this.timeBegan = null;
+    this.timeStopped = null;
+    this.time = this.blankTime;
   }
 
-  UpdateRecord(recordRow) {
-    let record = {};
-    record['Name'] = recordRow.EditName;
-    record['Age'] = recordRow.EditAge;
-    record['Address'] = recordRow.EditAddress;
-    this.crudService.update_Student(recordRow.id, record);
-    recordRow.isEdit = false;
+  zeroPrefix(num, digit){
+    let zero = '';
+    for(let i = 0; i < digit; i++){
+      zero += '0';
+    }
+    return (zero + num).slice(-digit);
   }
+
+  clockRunning(){
+    let currentTime:any = new Date();
+    let timeElapsed:any = new Date(currentTime - this.timeBegan - this.stoppedDuration);
+    let hour = timeElapsed.getUTCHours();
+    let min = timeElapsed.getUTCMinutes();
+    let sec = timeElapsed.getUTCSeconds();
+
+    this.time = `${this.zeroPrefix(hour, 2)}:${this.zeroPrefix(min,2)}:${this.zeroPrefix(sec,2)}`;
+  };
+ 
 }

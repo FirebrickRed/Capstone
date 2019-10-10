@@ -25,7 +25,7 @@ export class SignupPage implements OnInit {
   async register(){
     await this.afAuth.auth.createUserWithEmailAndPassword(this.user.username,this.user.password)
       .then(res => {
-        this.navCtrl.navigateRoot('tabs/tab2');
+        this.navCtrl.navigateRoot('/character-creation');
       }, err => {
         console.log(err);
       })

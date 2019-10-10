@@ -7,8 +7,23 @@
 </ion-header>
 
 <ion-content>
-  <ion-item>
+  <ion-button (click)="endlessTimer()">
+    Endless Timer
+  </ion-button>
+  <ion-button (click)="countDownTimer()">
+    Countdown Timer
+  </ion-button>
+
+  <div *ngIf="endlessTimerDisplay">
+    <h3>{{ eTime }}</h3>
+    <ion-button *ngIf="!eRunning" (click)="endlessStart()"
+      >Start</ion-button>
+      <ion-button *ngIf='eRunning' (click)='endlessStop()'>Stop</ion-button>
+      <ion-button (click)='endlessRestart()'>Reset</ion-button>
+  </div>
+
+  <!-- <ion-item>
     <ion-label>HH:mm</ion-label>
     <ion-datetime display-format="HH:mm"></ion-datetime>
-  </ion-item>
+  </ion-item> -->
 </ion-content>
