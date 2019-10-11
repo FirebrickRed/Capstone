@@ -22,6 +22,11 @@
       <ion-button (click)='endlessRestart()'>Reset</ion-button>
   </div>
 
+  <div *ngIf='countdownTimerDisplay'>
+    <h3>Its the final countDown!</h3>
+    <h3>{{maxTime}}</h3>
+  </div>
+
   <!-- <ion-item>
     <ion-label>HH:mm</ion-label>
     <ion-datetime display-format="HH:mm"></ion-datetime>

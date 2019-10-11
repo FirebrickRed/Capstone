@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {AlertController} from '@ionic/angular';
+import undefined = require('firebase/empty-import');
 
 @Component({
   selector: 'app-tab3',
@@ -13,6 +14,7 @@ export class Tab3Page {
   ) {  }
 
   public endlessTimerDisplay = false;
+  public countdownTimerDisplay = false;
 
     endlessTimer(){
       if(this.endlessTimerDisplay){
@@ -23,9 +25,67 @@ export class Tab3Page {
       this.endlessTimerDisplay = !this.endlessTimerDisplay;
     }
 
-    countDownTimer(){
+    public countdownTimer = 0;
 
+    async countDownTimer(){
+      const alert = await this.alertCtrl.create({
+        header: 'Work Time',
+        message: 'How many hours would you like to work for?',
+        buttons: [
+          {
+            text: 'Cancel',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: () => {
+              console.log('cancel');
+            }
+          },{
+            text: 'Ok',
+            handler: alertData => {
+              alert.dismiss(alertData.hour);
+            }
+          }
+        ],
+        inputs: [
+          {
+            name: 'hour',
+            type: 'number'
+          }
+        ]
+      });
+      alert.present();
+      alert.onDidDismiss()
+        .then((data) => {
+        console.log(data);
+        if(data.data != undefined){
+          console.log(data.data.values.hour);
+          this.countdownTimerDisplay = true;
+          this.maxTime = data.data.values.hour * 60;
+          this.startCountDownTimer();
+        }
+        });
     }
+
+    //public time;
+    public timer;
+    public hidevalue;
+    public maxTime;
+    startCountDownTimer(){
+      this.timer = setTimeout(x => {
+        if(this.maxTime <= 0){}
+        
+        this.maxTime -= 1;
+
+        if(this.maxTime>0){
+          this.hidevalue = false;
+          this.startCountDownTimer();
+        } else {
+          this.hidevalue = true;
+        }
+      }, 1000);
+    }
+    //CountDownTimer Crap
+
     
     //Endless Timer Crap
     public eTimeBegain = null;
