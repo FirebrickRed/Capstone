@@ -12,6 +12,7 @@ export class CharacterCreationPage implements OnInit {
   characterName: string;
   xP: number;
   gold: number;
+  level: number;
 
   constructor(
     public iService: ItemService,
@@ -28,6 +29,7 @@ export class CharacterCreationPage implements OnInit {
     record['Name'] = this.characterName;
     record['XP'] = 0;
     record['Gold'] = 0;
+    record['Level'] = 1;
     console.log(record);
     console.log(this.characterName);
     this.iService.create_NewCharacter(record, this.afAuth.auth.currentUser.uid)
@@ -35,6 +37,7 @@ export class CharacterCreationPage implements OnInit {
         this.characterName = "";
         this.xP = 0;
         this.gold = 0;
+        this.level = 1;
         console.log(resp);
         this.navCtrl.navigateRoot('login');
       })

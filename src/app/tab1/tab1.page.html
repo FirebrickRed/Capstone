@@ -7,11 +7,8 @@
 </ion-header>
 
 <ion-content padding>
-  <h3>{{maxTime}}</h3>
-  <h3>{{timer}}</h3>
-  <h3>{{hidevalue}}</h3>
-
-  <ion-button (click)='StartTimer()'>
-    Start?
-  </ion-button>
+  <ion-button (click)="start()">Start</ion-button>
+  <ion-button (click)="stop()">Stop</ion-button>
+  <canvas id="demoCanvas" width="500" height="200"></canvas>
+  <ion-img [src]='src/assets/Ghostie?.png' alt='desc'></ion-img>
 </ion-content>

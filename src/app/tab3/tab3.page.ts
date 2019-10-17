@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {AlertController} from '@ionic/angular';
-import undefined = require('firebase/empty-import');
+import {ItemService} from '../services/item.service';
+import {AngularFireAuth} from '@angular/fire/auth';
 
 @Component({
   selector: 'app-tab3',
@@ -8,20 +9,35 @@ import undefined = require('firebase/empty-import');
   styleUrls: ['tab3.page.scss']
 })
 export class Tab3Page {
+  public currChar;
 
   constructor(
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController,
+    public iService: ItemService,
+    public afAuth: AngularFireAuth
   ) {  }
+
+  ngOnInit(){
+    this.iService.read_Character(this.afAuth.auth.currentUser.uid)
+      .subscribe(data => {
+        this.currChar = data.map(e => {
+          return {
+            id: e.payload.doc.id,
+            isEdit: false,
+            Name: e.payload.doc.data()['Name'],
+            Gold: e.payload.doc.data()['Gold'],
+            XP: e.payload.doc.data()['XP']
+          }
+        })
+        this.currChar = this.currChar[0];
+        console.log(this.currChar);
+      })
+  }
 
   public endlessTimerDisplay = false;
   public countdownTimerDisplay = false;
 
-    endlessTimer(){
-      if(this.endlessTimerDisplay){
-        console.log('if');
-      } else {
-        console.log('else');
-      }
+    endlessTimerToDisplay(){
       this.endlessTimerDisplay = !this.endlessTimerDisplay;
     }
 
@@ -66,25 +82,72 @@ export class Tab3Page {
         });
     }
 
+    async afterTimerEnded(time){
+      this.endlessTimerDisplay = false;
+      this.countdownTimerDisplay = false;
+      console.log(`you worked for ${time}`);
+      const alert = await this.alertCtrl.create({
+        header: 'Congrats',
+        subHeader: 'Take a break for a bit',
+        message: 'You earned 5 gold',
+        buttons: [{
+          text: 'ok',
+          handler: () => {
+            let newGold = this.currChar.Gold + 5;
+            let record = { }
+            record['Name'] = this.currChar.Name;
+            record['Gold'] = newGold;
+            record['XP'] = this.currChar.XP;
+            this.iService.update_Character(this.afAuth.auth.currentUser.uid, this.currChar.id, record);
+          }
+        }]
+      });
+      alert.present();
+    }
+
     //public time;
     public timer;
-    public hidevalue;
     public maxTime;
+    public beginTime;
     startCountDownTimer(){
       this.timer = setTimeout(x => {
+        this.beginTime = this.maxTime;
         if(this.maxTime <= 0){}
         
         this.maxTime -= 1;
 
         if(this.maxTime>0){
-          this.hidevalue = false;
           this.startCountDownTimer();
         } else {
-          this.hidevalue = true;
+          this.afterTimerEnded(this.beginTime * 60);
         }
       }, 1000);
     }
-    //CountDownTimer Crap
+
+    public eTimer;
+    public eMaxTime = 0;
+    public pleaseStop = true;
+    public endlessDisplay = false;
+    startEndlessTimer(){
+      this.endlessDisplay = true;
+      this.endlessTimer();
+    }
+    
+    endlessTimer(){
+      this.eTimer = setTimeout(x => {
+        this.eMaxTime += 1;
+        if(this.pleaseStop){
+          this.endlessTimer();
+        } else {
+          console.log(this.endlessDisplay);
+          this.endlessDisplay = false;
+          this.afterTimerEnded(this.eMaxTime);
+          this.eMaxTime = 0;
+          this.pleaseStop = true;
+        }
+      }, 1000);
+
+    }
 
     
     //Endless Timer Crap
@@ -127,6 +190,7 @@ export class Tab3Page {
       this.eRunning = false;
       this.eTimeStopped = new Date();
       clearInterval(this.eStarted);
+      this.afterTimerEnded(this.eStoppedDuration);
     }
 
     reset(){

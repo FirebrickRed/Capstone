@@ -6,8 +6,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-button (click)="endlessTimer()">
+<ion-content padding>
+  <ion-button (click)="endlessTimerToDisplay()">
     Endless Timer
   </ion-button>
   <ion-button (click)="countDownTimer()">
@@ -15,16 +15,18 @@
   </ion-button>
 
   <div *ngIf="endlessTimerDisplay">
-    <h3>{{ eTime }}</h3>
-    <ion-button *ngIf="!eRunning" (click)="endlessStart()"
-      >Start</ion-button>
-      <ion-button *ngIf='eRunning' (click)='endlessStop()'>Stop</ion-button>
-      <ion-button (click)='endlessRestart()'>Reset</ion-button>
+    <h3>{{eMaxTime}}</h3>
+    <ion-button *ngIf='!endlessDisplay' (click)='startEndlessTimer()'>Start</ion-button>
+    <ion-button *ngIf='endlessDisplay' (click)='pleaseStop = !pleaseStop'>Stop</ion-button>
+    <!-- <h3>{{ eTime }}</h3> -->
+    <!-- <ion-button *ngIf="!eRunning" (click)="endlessStart()">Start</ion-button>
+    <ion-button *ngIf="eRunning" (click)="endlessStop()">Stop</ion-button> -->
+    <!-- <ion-button (click)="endlessRestart()">Reset</ion-button> -->
   </div>
 
-  <div *ngIf='countdownTimerDisplay'>
+  <div *ngIf="countdownTimerDisplay">
     <h3>Its the final countDown!</h3>
-    <h3>{{maxTime}}</h3>
+    <h3>{{ maxTime }}</h3>
   </div>
 
   <!-- <ion-item>
