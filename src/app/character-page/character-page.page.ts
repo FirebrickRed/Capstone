@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ItemService} from '../services/item.service';
 import {AngularFireAuth} from  '@angular/fire/auth';
+import {AuthService} from '../services/auth.service';
 
 declare var createjs: any;
 
@@ -16,7 +17,8 @@ export class CharacterPagePage implements OnInit {
 
   constructor(
     public iService: ItemService,
-    public afAuth: AngularFireAuth
+    public afAuth: AngularFireAuth,
+    public authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -38,7 +40,10 @@ export class CharacterPagePage implements OnInit {
 
     this.stage = new createjs.Stage('avatarCanvas');
     var bitmap = new createjs.Bitmap('assets/Ghostie.png');
-    this.stage.addChild(bitmap);
+    let shirt = new createjs.Bitmap('assets/PinkShirt.png');
+    shirt.x = 15;
+    shirt.y = 85;
+    this.stage.addChild(bitmap, shirt);
     createjs.Ticker.addEventListener('tick', this.stage);
   }
 }

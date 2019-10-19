@@ -1,6 +1,7 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar padding>
     <ion-title>characterPage</ion-title>
+    <ion-button slot='end' (click)='authService.signOut()'>Sign Out</ion-button>
   </ion-toolbar>
 </ion-header>
 
@@ -8,8 +9,8 @@
   <ion-card>
     <ion-row >
       <ion-col size='2'>
-        <ion-avatar center padding>
-          <canvas style="display: block" center id="avatarCanvas" width="200x" height="200"></canvas>
+        <ion-avatar padding>
+          <canvas style="display: block" center id="avatarCanvas" width="200" height="200"></canvas>
         </ion-avatar>
       </ion-col>
       <ion-col>

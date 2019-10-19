@@ -25,7 +25,10 @@ const routes: Routes = [
     path: 'character-creation', 
     loadChildren: () => import('./character-creation/character-creation.module').then(m => m.CharacterCreationPageModule) //'./character-creation/character-creation.module#CharacterCreationPageModule' 
   },
-  { path: 'store-tab', loadChildren: './store-tab/store-tab.module#StoreTabPageModule' },
+  { 
+    path: 'store-tab', 
+    loadChildren: () => import('./store-tab/store-tab.module').then(m => m.StoreTabPageModule) 
+  },
   { path: 'character-page', loadChildren: './character-page/character-page.module#CharacterPagePageModule' },
   
 ];

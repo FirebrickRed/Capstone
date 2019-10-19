@@ -3,7 +3,6 @@ import { ModalController, NavController } from "@ionic/angular";
 import { NewItemModalComponent } from "../new-item-modal/new-item-modal.component";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { ItemService } from "../services/item.service";
-import { AuthService } from "../services/auth.service";
 
 @Component({
   selector: "app-tab2",
@@ -18,8 +17,7 @@ export class Tab2Page {
     public modalCtrl: ModalController,
     public navCtrl: NavController,
     public afAuth: AngularFireAuth,
-    public iService: ItemService,
-    public authService: AuthService
+    public iService: ItemService
   ) {}
 
   ngOnInit() {

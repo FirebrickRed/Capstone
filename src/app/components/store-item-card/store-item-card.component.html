@@ -1,0 +1,22 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>{{ Name }}</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <!-- <div attr.id={{CName}}>
+      Hewow
+    </div> -->
+    <canvas id={{CName}} width="100" height="100"></canvas>
+    <ion-button (click)="buy()">{{ Cost }}</ion-button>
+  </ion-card-content>
+</ion-card>
+
+<!-- <ion-card>
+  <ion-card-header>
+    <ion-card-title>{{ item.Name }}</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <canvas id="itemCanvas" width="200" height="200"></canvas>
+    <ion-button (click)="buy(item.id, item.Cost)">{{ item.Cost }}</ion-button>
+  </ion-card-content>
+</ion-card> -->

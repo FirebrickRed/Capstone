@@ -1,12 +1,42 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Work Time
+      Adventure Time
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
+  <ion-grid>
+    Equation Option 1: (min/10)^2/2
+    <ion-row>
+      <ion-col>(10/10)^2/2 = .5</ion-col>
+      <ion-col>(30/10)^2/2 = 4.5</ion-col>
+      <ion-col>(60/10)^2/2 = 18</ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid>
+    Equation Option 2: (min/10)^Dif
+    <ion-row>
+      <ion-col>(10/10)^.5 = 1</ion-col>
+      <ion-col>(10/10)^1 = 1</ion-col>
+      <ion-col>(10/10)^1.5 = 1</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>(30/10)^.5 = 1.7</ion-col>
+      <ion-col>(30/10)^1 = 3</ion-col>
+      <ion-col>(30/10)^1.5 = 5.19</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>(60/10)^.5 = 2.4 </ion-col>
+      <ion-col>(60/10)^1 = 6</ion-col>
+      <ion-col>(60/10)^1.5 = 14.69</ion-col>
+    </ion-row>
+  </ion-grid>
+  <br />
+  <br />
+  Difficulty rage: [.5, 1, 1.5]
+  <br />
   <ion-button (click)="endlessTimerToDisplay()">
     Endless Timer
   </ion-button>
@@ -15,9 +45,13 @@
   </ion-button>
 
   <div *ngIf="endlessTimerDisplay">
-    <h3>{{eMaxTime}}</h3>
-    <ion-button *ngIf='!endlessDisplay' (click)='startEndlessTimer()'>Start</ion-button>
-    <ion-button *ngIf='endlessDisplay' (click)='pleaseStop = !pleaseStop'>Stop</ion-button>
+    <h3>{{ eMaxTime }}</h3>
+    <ion-button *ngIf="!endlessDisplay" (click)="startEndlessTimer()"
+      >Start</ion-button
+    >
+    <ion-button *ngIf="endlessDisplay" (click)="pleaseStop = !pleaseStop"
+      >Stop</ion-button
+    >
     <!-- <h3>{{ eTime }}</h3> -->
     <!-- <ion-button *ngIf="!eRunning" (click)="endlessStart()">Start</ion-button>
     <ion-button *ngIf="eRunning" (click)="endlessStop()">Stop</ion-button> -->

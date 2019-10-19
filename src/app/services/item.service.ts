@@ -17,6 +17,14 @@ export class ItemService {
     return this.firestore.collection(`users/${userId}/Character`).add(record);
   }
 
+  create_NewCharacterItem(record, userId, charId){
+    return this.firestore.collection(`users/${userId}/Character/${charId}/Inventory`).add(record);
+  }
+
+  create_NewCharacterItemWId(record, userId, charId, itemId){
+    return this.firestore.doc(`users/${userId}/Character/${charId}/Inventory/${itemId}`).set(record);
+  }
+
   read_Items(userId){
     return this.firestore.collection('users/'+userId+'/ToDoItems').snapshotChanges();
   }
@@ -27,6 +35,14 @@ export class ItemService {
 
   read_Character(userId){
     return this.firestore.collection(`users/${userId}/Character`).snapshotChanges();
+  }
+
+  read_CharacterInventory(userId, charId){
+    return this.firestore.collection(`users/${userId}/Character/${charId}/Inventory`).snapshotChanges();
+  }
+
+  read_SingleCharacterInventory(userId, charId, itemId){
+    return this.firestore.collection(`users/${userId}/Character/${charId}/Inventory/${itemId}`).snapshotChanges();
   }
 
   update_SingleItem(userId, itemId, record){
