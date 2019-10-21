@@ -29,6 +29,10 @@ const routes: Routes = [
     path: 'store-tab', 
     loadChildren: () => import('./store-tab/store-tab.module').then(m => m.StoreTabPageModule) 
   },
+  {
+    path: 'work-time-modal',
+    loadChildren: () => import('./components/work-time-modal/work-time-modal.component')
+  },
   { path: 'character-page', loadChildren: './character-page/character-page.module#CharacterPagePageModule' },
   
 ];

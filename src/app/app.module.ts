@@ -1,3 +1,4 @@
+import { MbscModule } from '@mobiscroll/angular';
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { RouteReuseStrategy } from "@angular/router";
@@ -8,6 +9,7 @@ import { StatusBar } from "@ionic-native/status-bar/ngx";
 
 import {ComponentsModule} from './components/components.module';
 import { NewItemModalComponent } from "./new-item-modal/new-item-modal.component";
+import { WorkTimeModalComponent } from "./components/work-time-modal/work-time-modal.component";
 import { FormsModule } from "@angular/forms";
 
 import { AngularFireModule } from "@angular/fire";
@@ -23,9 +25,10 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 
 @NgModule({
-  declarations: [AppComponent, NewItemModalComponent],
-  entryComponents: [NewItemModalComponent],
-  imports: [
+  declarations: [AppComponent, NewItemModalComponent, WorkTimeModalComponent],
+  entryComponents: [NewItemModalComponent, WorkTimeModalComponent],
+  imports: [ 
+    MbscModule, 
     BrowserModule,
     ComponentsModule,
     IonicModule.forRoot(),

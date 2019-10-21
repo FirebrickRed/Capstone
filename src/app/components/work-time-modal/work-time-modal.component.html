@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Adventure Time!
+    </ion-title>
+    <ion-button slot="end" (click)="closeModal()">
+      <ion-icon name="close"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label start>Hour:</ion-label>
+    <ion-button (click)='addHour()' start>/\</ion-button>
+    <ion-label>{{hourInput}}</ion-label>
+    <ion-button (click)='subHour()' end>\/</ion-button>
+  </ion-item>
+  <ion-item>
+    <ion-label start>Minute:</ion-label>
+    <ion-button (click)='add10Min()' start>+10</ion-button>
+    <ion-button (click)='add1Min()' start>+5</ion-button>
+    <ion-label>{{minInput}}</ion-label>
+    <ion-button (click)='sub1Min()' start>-5</ion-button>
+    <ion-button (click)='sub10Min()' start>-10</ion-button>
+  </ion-item>
+  <ion-button (click)='start()'>Start</ion-button>
+  <!-- <ion-item>
+    <ion-label>Enter Time to Work</ion-label>
+    <ion-datetime
+      displayFormat="HH:mm"
+      [(ngModel)]="workTimeInput"
+      picker-format="h:mm"
+    ></ion-datetime>
+  </ion-item>
+  <ion-button (click)="getTime()">Get Time</ion-button> -->
+</ion-content>

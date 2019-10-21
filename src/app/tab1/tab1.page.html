@@ -7,8 +7,12 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-button (click)="start()">Start</ion-button>
-  <ion-button (click)="stop()">Stop</ion-button>
-  <canvas id="demoCanvas" width="500" height="200"></canvas>
-  <ion-img [src]='src/assets/Ghostie?.png' alt='desc'></ion-img>
+  <!-- <mbsc-form>
+    <mbsc-form-group>
+      <mbsc-form-group-title>Embedded countdown</mbsc-form-group-title>
+      <div [(ngModel)]="timer" mbsc-timer [mbsc-options]="timerSettings"></div>
+    </mbsc-form-group>
+  </mbsc-form> -->
+
+  <countdown [config]='huba' (event)="handleEvent($event)"></countdown>
 </ion-content>
