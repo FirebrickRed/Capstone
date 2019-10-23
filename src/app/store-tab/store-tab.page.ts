@@ -69,7 +69,8 @@ export class StoreTabPage implements OnInit {
           isEdit: false,
           Name: e.payload.doc.data()["Name"],
           CanvasName: e.payload.doc.data()["CanvasName"],
-          Cost: e.payload.doc.data()["Cost"]
+          Cost: e.payload.doc.data()["Cost"],
+          isWearing: e.payload.doc.data()['isWearing']
         };
       });
       console.log(this.items);
@@ -104,6 +105,7 @@ export class StoreTabPage implements OnInit {
     record['Name'] = event.name;
     record['CanvasName'] = event.cname;
     record['Cost'] = event.cost;
+    record['isWearing'] = false;
     console.log(record);
     this.iService.create_NewCharacterItemWId(record, this.afAuth.auth.currentUser.uid, this.currChar.id, event.id)
       .catch(err => {

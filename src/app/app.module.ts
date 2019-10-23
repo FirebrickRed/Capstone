@@ -1,4 +1,3 @@
-import { MbscModule } from '@mobiscroll/angular';
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { RouteReuseStrategy } from "@angular/router";
@@ -28,7 +27,6 @@ import { AppComponent } from "./app.component";
   declarations: [AppComponent, NewItemModalComponent, WorkTimeModalComponent],
   entryComponents: [NewItemModalComponent, WorkTimeModalComponent],
   imports: [ 
-    MbscModule, 
     BrowserModule,
     ComponentsModule,
     IonicModule.forRoot(),
