@@ -70,7 +70,9 @@ export class StoreTabPage implements OnInit {
           Name: e.payload.doc.data()["Name"],
           CanvasName: e.payload.doc.data()["CanvasName"],
           Cost: e.payload.doc.data()["Cost"],
-          isWearing: e.payload.doc.data()['isWearing']
+          isWearing: e.payload.doc.data()['isWearing'],
+          X: e.payload.doc.data()['X'],
+          Y: e.payload.doc.data()['Y']
         };
       });
       console.log(this.items);
@@ -106,6 +108,8 @@ export class StoreTabPage implements OnInit {
     record['CanvasName'] = event.cname;
     record['Cost'] = event.cost;
     record['isWearing'] = false;
+    record['X'] = event.x;
+    record['Y'] = event.y;
     console.log(record);
     this.iService.create_NewCharacterItemWId(record, this.afAuth.auth.currentUser.uid, this.currChar.id, event.id)
       .catch(err => {

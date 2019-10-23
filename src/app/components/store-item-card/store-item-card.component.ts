@@ -13,17 +13,16 @@ export class StoreItemCardComponent implements OnInit {
   @Input("canvasName") CName: string;
   @Input("id") id: string;
   @Input("cost") Cost: number;
-  @Input('CurrCharGold') CurrCharGold: number;
-  @Output() boughtItem: EventEmitter<any> = new EventEmitter()
+  @Input("CurrCharGold") CurrCharGold: number;
+  @Input("X") X: number;
+  @Input("Y") Y: number;
+  @Output() boughtItem: EventEmitter<any> = new EventEmitter();
 
   stage: any;
 
-  constructor(
-  ) {}
+  constructor() {}
 
-  ngOnInit() {
-    
-  }
+  ngOnInit() {}
 
   ngAfterViewInit() {
     console.log("viewInit");
@@ -39,14 +38,20 @@ export class StoreItemCardComponent implements OnInit {
     console.log(this.id);
     console.log(this.Cost);
     console.log(this.CurrCharGold);
-    if(this.CurrCharGold >= this.Cost){
-      let args = {id: this.id, cost: this.Cost, name: this.Name, cname: this.CName};
+    if (this.CurrCharGold >= this.Cost) {
+      let args = {
+        id: this.id,
+        cost: this.Cost,
+        name: this.Name,
+        cname: this.CName,
+        x: this.X,
+        y: this.Y
+      };
       console.log(args);
-      console.log('you have enough money')
+      console.log("you have enough money");
       this.boughtItem.emit(args);
     } else {
-      console.log('you do not');
+      console.log("you do not");
     }
-
   }
 }
