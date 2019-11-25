@@ -1,1 +1,96 @@
+ion-list {
+  width: 300px;
+}
 
+.center {
+  width: fit-content;
+  margin: auto;
+}
+
+ion-card{
+  background: #f5deb3;
+  border: 7px double #996515;
+  ion-card-header{
+    ion-card-title{
+      color: #5b342e;
+    }
+  }
+  ion-list{
+    background: transparent;
+    ion-card{
+      background: #d2b48c;
+      border: 5px double #8b4513;
+      ion-card-header{
+        color: #5b342e;
+        ion-card-subtitle{
+          color: #5b342e;
+        }
+      }
+    }
+  }
+}
+
+.clickable:hover{
+  background: #f0cf90;
+  border: 3px double #e29b2e;
+}
+
+@mixin card($color, $isOverdue) {
+  background: #f5deb3;
+  ion-card-content {
+    width: fit-content;
+    margin: auto;
+    ion-button {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+  }
+  @if $color == y {
+    border: 6px double #e1ad01;
+  } @else if $color == g {
+    border: 6px double #00693e;
+  } @else if $color == r {
+    border: 6px double #a81c07;
+  }
+  @if $isOverdue {
+    color: #b31b1b;
+    ion-title {
+      color: #b31b1b;
+    }
+    ion-card-subtitle {
+      color: #b31b1b;
+    }
+  } @else {
+    ion-title {
+      color: #666;
+    }
+    ion-card-subtitle {
+      color: #666;
+    }
+    color: #666;
+  }
+}
+
+.card-yellow {
+  @include card(y, false);
+}
+.card-green {
+  @include card(g, false);
+}
+.card-red {
+  @include card(r, false);
+}
+.card-yellow.card-overdue {
+  @include card(y, true);
+}
+.card-green.card-overdue {
+  @include card(g, true);
+}
+.card-red.card-overdue {
+  @include card(r, true);
+}
+
+.flex{
+  display: flex;
+  flex-wrap: wrap;
+}

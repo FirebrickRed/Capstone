@@ -17,6 +17,7 @@ interface User {
 })
 export class AuthService {
   user: Observable<User>;
+  errorMsg: string;
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -41,13 +42,14 @@ export class AuthService {
       })
     }
     
-    private login(username, password){
+    public login(username, password){
       this.afAuth.auth.signInWithEmailAndPassword(username, password)
       .then(res => {
-        this.router.navigate(['/tabs/tab2']);
+        this.router.navigate(['/tabs/tab1']);
         this.updateUserData(res.user)
 
       }, err => {
+        this.errorMsg = err.code;
         console.log(err);
       })
    }

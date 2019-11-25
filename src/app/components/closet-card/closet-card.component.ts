@@ -16,6 +16,7 @@ export class ClosetCardComponent implements OnInit {
   @Input('cost') Cost: number;
   @Input('X') X: number;
   @Input('Y') Y: number;
+  @Input('Z') Z: number;
   @Output() equipItem: EventEmitter<any> = new EventEmitter();
 
   stage: any;
@@ -41,7 +42,8 @@ export class ClosetCardComponent implements OnInit {
       Name: this.Name,
       Cost: this.Cost,
       X: this.X,
-      Y: this.Y
+      Y: this.Y,
+      Z: this.Z
     };
     this.equipItem.emit(args);
   }

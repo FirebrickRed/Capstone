@@ -1,8 +1,13 @@
 import { Component } from "@angular/core";
-import { AlertController, ModalController } from "@ionic/angular";
+import {
+  AlertController,
+  ModalController,
+  ToastController
+} from "@ionic/angular";
 import { ItemService } from "../services/item.service";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { WorkTimeModalComponent } from "../components/work-time-modal/work-time-modal.component";
+import { ManualInputModalComponent } from "../components/manual-input-modal/manual-input-modal.component";
 import { CountdownComponent, CountdownConfig } from "ngx-countdown";
 
 @Component({
@@ -13,9 +18,10 @@ import { CountdownComponent, CountdownConfig } from "ngx-countdown";
 export class Tab3Page {
   constructor(
     public alertCtrl: AlertController,
+    public modCtrl: ModalController,
+    public toastCtrl: ToastController,
     public iService: ItemService,
     public afAuth: AngularFireAuth,
-    public modCtrl: ModalController
   ) {}
 
   public currChar;
@@ -30,36 +36,47 @@ export class Tab3Page {
             Name: e.payload.doc.data()["Name"],
             Gold: e.payload.doc.data()["Gold"],
             XP: e.payload.doc.data()["XP"],
-            Level: e.payload.doc.data()['Level']
+            Level: e.payload.doc.data()["Level"]
           };
         });
         this.currChar = this.currChar[0];
         console.log(this.currChar);
       });
   }
+  public display = true;
+
+  async manualInput() {
+    console.log('manual Input');
+    const modal = await this.modCtrl.create({
+      component: ManualInputModalComponent
+    })
+    modal.onDidDismiss().then(data => {
+      console.log(data);
+      console.log(data.data);
+      if(data.data != undefined){
+        this.afterTimerEnded(data.data);
+      }
+    })
+    modal.present();
+  }
 
   public endlessTimerDisplay = false;
   public countdownTimerDisplay = false;
-
-  // getGold(timeWorkedInMinutes) {
-  //   let goldEarned;
-  //   console.log("time: " + timeWorkedInMinutes);
-
-  // }
 
   async afterTimerEnded(timeInMinutes) {
     this.endlessTimerDisplay = false;
     this.countdownTimerDisplay = false;
     const alert = await this.alertCtrl.create({
       header: "Congrats",
-      subHeader: `You worked for ${timeInMinutes} minutes. Take a break for a bit`,
+      subHeader: `You worked for ${timeInMinutes} minutes. Take a break for a bit. How well did you work?`,
       backdropDismiss: false,
       buttons: [
         {
           text: "ok",
-          handler: data => {
+          handler: async data => {
             let goldEarned = timeInMinutes / 10;
             goldEarned = Math.pow(goldEarned, data);
+            console.log(goldEarned);
             let record = {};
             record["Name"] = this.currChar.Name;
             record["Gold"] = Math.round(goldEarned + this.currChar.Gold);
@@ -70,6 +87,12 @@ export class Tab3Page {
               this.currChar.id,
               record
             );
+            let toast = this.toastCtrl.create({
+              message: `Congrats! You earned ${Math.round(goldEarned)} Gold!`,
+              duration: 3000,
+              position: "top"
+            });
+            (await toast).present();
           }
         }
       ],
@@ -101,6 +124,7 @@ export class Tab3Page {
       ]
     });
     alert.present();
+    this.display = true;
   }
 
   // async afterTimerEnded(timeInMinutes) {
@@ -138,22 +162,21 @@ export class Tab3Page {
   public timer: CountdownConfig;
   public cdtMinWorked: number;
   async countDownTimer() {
+    this.display = false;
     const modal = await this.modCtrl.create({
-      component: WorkTimeModalComponent,
-      componentProps: {
-        hour: 0,
-        minutes: 0
-      }
+      component: WorkTimeModalComponent
     });
     modal.onDidDismiss().then(data => {
-      if(data.data != undefined){
+      if (data.data != undefined) {
         this.countdownTimerDisplay = true;
-        let minutes = (data.data.minute + (data.data.hour * 60)) * 60;
+        let minutes = (data.data.minute + data.data.hour * 60) * 60;
         this.cdtMinWorked = minutes;
         this.timer = {
           leftTime: minutes,
-          format: 'HH:mm:ss'
-        }
+          format: "HH:mm:ss"
+        };
+      } else {
+        this.display = true;
       }
       // if (data.data.hour != undefined && data.data.minute != undefined) {
       //   console.log(data);
@@ -175,19 +198,19 @@ export class Tab3Page {
       //   console.log(addedHour.toString());
       //   console.log(addedHour.getHours());
       //   console.log(addedHour.getMinutes());
-        // console.log("gold1");
-        // let gold = Math.round(parseInt(addedHour.toString()));
-        // console.log("gold");
-        // console.log(gold);
-        //addedHour.setTime(baseDate.getTime() + (data.data.minute * 60 * 1000));
-        //console.log(addedHour);
+      // console.log("gold1");
+      // let gold = Math.round(parseInt(addedHour.toString()));
+      // console.log("gold");
+      // console.log(gold);
+      //addedHour.setTime(baseDate.getTime() + (data.data.minute * 60 * 1000));
+      //console.log(addedHour);
       //}
     });
     modal.present();
   }
 
-  timerDone(event){
-    if(event.action == 'done'){
+  timerDone(event) {
+    if (event.action == "done") {
       this.afterTimerEnded(this.cdtMinWorked / 60);
     }
   }
@@ -258,6 +281,7 @@ export class Tab3Page {
   // Endless Timer v3
 
   endlessTimerToDisplay() {
+    this.display = false;
     this.endlessTimerDisplay = !this.endlessTimerDisplay;
   }
 
@@ -265,19 +289,56 @@ export class Tab3Page {
   public endTime;
   public timeWorked;
   public endlessDisplay = false;
+  public breakcounter = 0;
+  public breakcounterDisplay = false;
+  public breaktimer;
+  public duringBreak = true;
   setEndlessTimer() {
     this.startTime = new Date();
     this.endlessDisplay = true;
     this.endTime = "";
+    this.breakcounter = 0;
+    this.breakcounterDisplay = false;
   }
 
   endEndlessTimer() {
     this.endTime = new Date();
     let diff = (this.endTime.getTime() - this.startTime.getTime()) / 1000;
     diff /= 60;
+    diff =- this.breakcounter * 5;
+    console.log(diff);
     diff = Math.round(diff);
     this.afterTimerEnded(diff);
     this.endlessDisplay = false;
+  }
+
+  break(){
+    this.duringBreak = false;
+    this.breakcounter++;
+    this.breaktimer = {
+      leftTime: 5 * 60,
+      format: "HH:mm:ss"
+    };
+    this.breakcounterDisplay = true;
+  }
+
+  async breakOver(event){
+    console.log(event);
+    if(event.action == 'done'){
+      this.duringBreak = true;
+      console.log('break over');
+      const alert = await this.alertCtrl.create({
+        header: 'Break Over',
+        subHeader: 'Break time over! Get back to work!',
+        buttons: [
+          {
+            text: 'ok'
+          }
+        ]
+      })
+      alert.present();
+      this.breakcounterDisplay = false;
+    }
   }
 
   //Endless timer crap 2

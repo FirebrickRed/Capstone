@@ -1,14 +1,14 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>characterCreation</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content padding>
+  <h1 class="Title">
+    Character Creation!
+  </h1>
+  <h3 class="subTitle">
+    Please choose a name for your blobatar!
+  </h3>
 
   <form #form='ngForm' (ngSubmit)='addCharacter()'>
     <ion-item>
-      <ion-label>Character Name</ion-label>
+      <ion-label position='floating'>Character Name</ion-label>
       <ion-input required type='text' [(ngModel)]='characterName' name='characterName'></ion-input>
     </ion-item>
     <ion-button type='submit' [disabled]='form.invalid'>Create Character</ion-button>

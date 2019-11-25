@@ -1,13 +1,26 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar>
     <ion-title>Log In</ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content padding>
-  <form #log="ngForm" (ngSubmit)="authService.login(username.value, password.value)">
+  <h1 class='Title'>
+    Welcome to To-Do Quester!
+  </h1>
+  <h2 class="SubTitle">
+    Need a tool to help you keep track of homework?
+    Want to earn awesome stuff for your online character?
+  </h2>
+  <h1 class='SubTitle'>
+    Log In!
+  </h1>
+  <div class="error">
+    {{errorMsg}}
+  </div>
+  <form #log="ngForm" (ngSubmit)="login(username.value, password.value)">
     <ion-item>
-      <ion-label position="floating">Username</ion-label>
+      <ion-label position="floating">Email</ion-label>
       <ion-input
         required
         type="email"
@@ -24,5 +37,6 @@
     </ion-item>
     <ion-button type="submit" [disabled]="log.invalid">Log In</ion-button>
   </form>
-  <ion-button (click)="signUp()">Sign Up</ion-button>
+  <h4 class="footer">Don't have an account? <a href="/signup">Sign up here!</a></h4>
+  <!-- <ion-button (click)="signUp()">Sign Up</ion-button> -->
 </ion-content>

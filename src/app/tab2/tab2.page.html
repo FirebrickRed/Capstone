@@ -1,23 +1,115 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      To-Do List
+      Quest Book
     </ion-title>
+    <ion-button slot="end" (click)="openAnimation()">Floss</ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
   <ion-button (click)="addItem()" expand="block" color="primary">
     <ion-icon name="add-circle-outline"></ion-icon>
-    Add New Item
+    Add New Quest
   </ion-button>
 
-  <ion-list no-lines>
+  <div class="flex">
+    <ion-list *ngFor="let item of items">
+      <ion-card class="{{ item.class }}">
+        <ion-card-header
+          tappable
+          (click)="item.displayMore = !item.displayMore"
+          class="center"
+        >
+          <ion-card-title class="center">{{ item.Name }}</ion-card-title>
+          <ion-card-subtitle class="center">{{
+            item.DueDate | date
+          }}</ion-card-subtitle>
+          <ion-card-subtitle *ngIf="item.displayMore" class="center"
+            >Experience: {{ item.XP }}</ion-card-subtitle
+          >
+          <div *ngIf="item.displayMore">
+            <ion-card-subtitle *ngIf="item.timeLeft > 0" class="center"
+              >Time Left:
+              <countdown
+                [config]="{
+                  leftTime: item.timeLeft,
+                  format: 'd \'day(s)\' h \'hour(s)\' m'
+                }"
+              ></countdown>
+            </ion-card-subtitle>
+            <ion-card-subtitle *ngIf="item.timeLeft < 0" class="center">
+              OverDue
+            </ion-card-subtitle>
+          </div>
+        </ion-card-header>
+        <ion-card-content *ngIf="item.displayMore">
+          {{ item.Desc }}
+        </ion-card-content>
+        <ion-card-content class="icc">
+          <ion-button size="small" color="warning" (click)="edit(item.id)"
+            ><ion-icon name="create"></ion-icon
+          ></ion-button>
+          <ion-button color="success" (click)="complete(item.id, item.XP)"
+            ><ion-icon name="checkmark"></ion-icon
+          ></ion-button>
+          <ion-button size="small" color="danger" (click)="delete(item.id)"
+            ><ion-icon name="trash"></ion-icon
+          ></ion-button>
+        </ion-card-content>
+      </ion-card>
+    </ion-list>
+  </div>
+
+  <ion-card>
+    <ion-card-header class="clickable" tappable (click)="showCompleted = !showCompleted">
+      <ion-card-title class="center">Completed Quests</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content class="flex" *ngIf="showCompleted">
+      <ion-list *ngFor="let ci of completedItems">
+        <ion-card>
+          <ion-card-header class="center">
+            <ion-title class="center">{{ ci.Name }}</ion-title>
+            <ion-card-subtitle class="center">{{
+              ci.DueDate | date
+            }}</ion-card-subtitle>
+            <ion-button
+              size="small"
+              color="danger"
+              (click)="deleteComplete(ci.id)"
+              ><ion-icon name="trash"></ion-icon
+            ></ion-button>
+          </ion-card-header>
+        </ion-card>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- <ion-item>
+    <ion-header>
+      <ion-title>Completed Items</ion-title>
+    </ion-header>
+
+    <ion-content>
+    <ion-list *ngFor="let ci of completedItems">
+      <ion-card>
+        <ion-card-header class="center">
+          <ion-title class="center">{{ ci.Name }}</ion-title>
+          <ion-card-subtitle class="center">{{
+            ci.DueDate | date
+          }}</ion-card-subtitle>
+        </ion-card-header>
+      </ion-card>
+    </ion-list>
+    </ion-content>
+  </ion-item> -->
+  <!-- <ion-list no-lines>
     <ion-item *ngFor="let item of items">
       <ion-item-sliding lines="full" detail>
         <h3>{{ item.Name }}</h3>
         <p>{{ item.Desc }}</p>
-        <p>{{ item.DueDate }}</p>
+        <p>{{ item.DueDate | date }}</p>
         <p>{{ item.XP }}</p>
         <ion-button (click)="edit(item.id)"
           ><ion-icon name="create"></ion-icon
@@ -25,8 +117,8 @@
         <ion-button (click)="delete(item.id)"
           ><ion-icon name="trash"></ion-icon
         ></ion-button>
-        <ion-button (click)="complete(item.id, item.XP)">Complete</ion-button>
       </ion-item-sliding>
+      <ion-button slot='end' (click)="complete(item.id, item.XP)">Complete</ion-button>
     </ion-item>
-  </ion-list>
+  </ion-list> -->
 </ion-content>

@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Tab1Page } from './tab1.page';
 import { CountdownModule } from 'ngx-countdown';
+import { NgCalendarModule } from "ionic2-calendar";
 
 @NgModule({
   imports: [
@@ -12,6 +13,7 @@ import { CountdownModule } from 'ngx-countdown';
     IonicModule,
     CommonModule,
     FormsModule,
+    NgCalendarModule,
     RouterModule.forChild([{ path: '', component: Tab1Page }])
   ],
   declarations: [Tab1Page]

@@ -13,6 +13,10 @@ export class ItemService {
     return this.firestore.collection('users/'+userId+'/ToDoItems').add(record);
   }
 
+  create_NewCompletedItem(record, userId){
+    return this.firestore.collection(`users/${userId}/CompletedToDoItems`).add(record);
+  }
+
   create_NewCharacter(record, userId){
     return this.firestore.collection(`users/${userId}/Character`).add(record);
   }
@@ -29,8 +33,12 @@ export class ItemService {
     return this.firestore.collection('users/'+userId+'/ToDoItems').snapshotChanges();
   }
 
-  read_SingleItem(userId, itemId){
-    return this.firestore.collection(`users/${userId}/ToDoItems/${itemId}`).snapshotChanges();
+  // read_SingleItem(userId, itemId){
+  //   return this.firestore.collection(`users/${userId}/ToDoItems/${itemId}`).snapshotChanges();
+  // }
+
+  read_CompletedItems(userId){
+    return this.firestore.collection(`users/${userId}/CompletedToDoItems`).snapshotChanges();
   }
 
   read_Character(userId){
@@ -41,9 +49,9 @@ export class ItemService {
     return this.firestore.collection(`users/${userId}/Character/${charId}/Inventory`).snapshotChanges();
   }
 
-  read_SingleCharacterInventory(userId, charId, itemId){
-    return this.firestore.collection(`users/${userId}/Character/${charId}/Inventory/${itemId}`).snapshotChanges();
-  }
+  // read_SingleCharacterInventory(userId, charId, itemId){
+  //   return this.firestore.collection(`users/${userId}/Character/${charId}/Inventory/${itemId}`).snapshotChanges();
+  // }
 
   update_SingleItem(userId, itemId, record){
     this.firestore.doc(`users/${userId}/ToDoItems/${itemId}`).update(record);
@@ -54,6 +62,10 @@ export class ItemService {
   }
 
   delete_SingleItem(userId, itemId){
+    this.firestore.doc(`users/${userId}/ToDoItems/${itemId}`).delete();
+  }
+
+  delete_SingleCompletedItem(userId, itemId){
     this.firestore.doc(`users/${userId}/ToDoItems/${itemId}`).delete();
   }
 

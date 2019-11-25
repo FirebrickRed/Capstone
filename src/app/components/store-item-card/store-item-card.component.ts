@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 //import { EventEmitter } from 'events';
+import { ToastController } from "@ionic/angular";
 
 declare var createjs: any;
 
@@ -16,11 +17,14 @@ export class StoreItemCardComponent implements OnInit {
   @Input("CurrCharGold") CurrCharGold: number;
   @Input("X") X: number;
   @Input("Y") Y: number;
+  @Input('Z') Z: number;
   @Output() boughtItem: EventEmitter<any> = new EventEmitter();
 
   stage: any;
 
-  constructor() {}
+  constructor(
+    public toastCtrl: ToastController
+  ) {}
 
   ngOnInit() {}
 
@@ -34,23 +38,38 @@ export class StoreItemCardComponent implements OnInit {
     createjs.Ticker.addEventListener("tick", this.stage);
   }
 
-  buy() {
+  async buy() {
     console.log(this.id);
     console.log(this.Cost);
     console.log(this.CurrCharGold);
+    console.log(this.CurrCharGold >= this.Cost);
+    console.log(this.CurrCharGold <= this.Cost);
     if (this.CurrCharGold >= this.Cost) {
+      let toast = await this.toastCtrl.create({
+        message: `You bought the ${this.Name} for ${this.Cost}. You now have ${this.CurrCharGold - this.Cost}!`,
+        duration: 6000,
+        position: 'top'
+      });
+      toast.present();
       let args = {
         id: this.id,
         cost: this.Cost,
         name: this.Name,
         cname: this.CName,
         x: this.X,
-        y: this.Y
+        y: this.Y,
+        z: this.Z
       };
       console.log(args);
       console.log("you have enough money");
       this.boughtItem.emit(args);
     } else {
+      let toast = await this.toastCtrl.create({
+        message: `The ${this.Name} costs ${this.Cost} Gold. You have ${this.CurrCharGold} Gold. You need ${this.Cost - this.CurrCharGold} more gold.`,
+        duration: 6000,
+        position: 'top'
+      });
+      toast.present();
       console.log("you do not");
     }
   }

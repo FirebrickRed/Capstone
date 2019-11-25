@@ -1,4 +1,12 @@
 ion-card{
   width: fit-content;
   float: left;
+  background: #f5deb3;
+  border: 7px double #996515;
+  ion-card-header{
+    ion-card-title{
+      color: #5b342e;
+      font-size: 20px;
+    }
+  }
 }

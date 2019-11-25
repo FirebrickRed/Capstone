@@ -1,12 +1,12 @@
 <ion-header>
-  <ion-toolbar padding>
-    <ion-title>characterPage</ion-title>
+  <ion-toolbar>
+    <ion-title>Your Hero Information</ion-title>
     <ion-button slot="end" (click)="authService.signOut()">Sign Out</ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-card>
+  <ion-card class="yourInfo">
     <ion-row>
       <ion-col size="2">
         <ion-avatar padding>
@@ -26,23 +26,132 @@
         </ion-card-header>
         <ion-card-content padding>
           Level: {{ currChar?.Level }}
-          <ion-progress-bar value="{{ xpPercent }}"></ion-progress-bar>
+          <ion-progress-bar
+            class="pb"
+            value="{{ xpPercent }}"
+          ></ion-progress-bar>
           Experience: {{ currChar?.XP }}/{{ currChar?.Level * 20 }}
         </ion-card-content>
         <ion-card-content> Gold: {{ currChar?.Gold }} </ion-card-content>
       </ion-col>
     </ion-row>
   </ion-card>
-  <div *ngFor="let i of charInventory">
-    <app-closet-card
-      name="{{ i.Name }}"
-      id="{{ i.id }}"
-      canvasName="{{ i.CanvasName }}"
-      cost='{{i.Cost}}'
-      [X]='i.X'
-      Y='{{i.Y}}'
-      [isWearing]="i.isWearing"
-      (equipItem)="equip($event)"
-    ></app-closet-card>
-  </div>
+
+  <ion-card>
+    <ion-card-header
+      class="clickable"
+      tappable
+      (click)="isShowingCloset = !isShowingCloset"
+    >
+      <ion-card-title>Equipment</ion-card-title>
+    </ion-card-header>
+    <ion-card-content *ngIf="isShowingCloset">
+      <div *ngFor="let i of charInventory">
+        <app-closet-card
+          name="{{ i.Name }}"
+          id="{{ i.id }}"
+          canvasName="{{ i.CanvasName }}"
+          [cost]="i.Cost"
+          [X]="i.X"
+          [Y]="i.Y"
+          [Z]="i.Z"
+          [isWearing]="i.isWearing"
+          (equipItem)="equip($event)"
+        ></app-closet-card>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header
+      class="clickable"
+      tappable
+      (click)="showingFriends = !this.showingFriends"
+    >
+      <ion-card-title>Allies</ion-card-title>
+      <!-- <ion-item>
+        <ion-input placeholder="email"></ion-input>
+      </ion-item>
+      <ion-button (click)="addFriend()"
+      ><ion-icon name="add"></ion-icon
+        ></ion-button> -->
+    </ion-card-header>
+    <ion-card-content *ngIf="showingFriends">
+      <h4>
+        Your friend code:
+        <span id="textToCopy">{{afAuth.auth.currentUser.uid}}</span
+        ><ion-icon name="copy" (click)="copy()"></ion-icon>
+      </h4>
+      <div class="addFriend">
+        <ion-item class="transparent">
+          <ion-label position="floating">Friend Code</ion-label>
+          <ion-input type="text" [(ngModel)]="friendCode"></ion-input>
+        </ion-item>
+        <ion-button (click)="addFriend()"
+          ><ion-icon name="add"></ion-icon
+        ></ion-button>
+      </div>
+
+      <div *ngIf="pendingFriends.length > 0" class="pending">
+        <h3 class="subHeader">Pending Friends</h3>
+        <ion-item *ngFor="let p of pendingFriends" class="notFriends">
+          <p>{{p.Name}}</p>
+        </ion-item>
+      </div>
+
+      <div *ngIf="needsFriends.length > 0" class="needs">
+        <h3 class="subHeader">Incoming Friend Requests</h3>
+        <ion-item *ngFor="let n of needsFriends" class="notFriends">
+          <div>
+            <p>{{n.Name}}</p>
+          </div>
+          <div slot="end">
+            <ion-button color="success" (click)="acceptFriend(n.id)"
+              ><ion-icon name="checkmark"></ion-icon
+            ></ion-button>
+            <ion-button color="danger" (click)="rejectFriend(n.id)"
+              ><ion-icon name="close"></ion-icon
+            ></ion-button>
+          </div>
+        </ion-item>
+      </div>
+
+      <div class="accepted">
+        <h3 class="subHeader">Friends</h3>
+        <div>
+          <div *ngFor="let f of trueFriends">
+            <app-friends-card
+              Name="{{f.Name}}"
+              [Gold]="f.Gold"
+              [Level]="f.Level"
+              [Clothes]="f.clothes"
+            ></app-friends-card>
+            <!-- <p>{{f.id}}</p>
+          <ion-card>
+            <ion-card-header>
+              <ion-title>
+                {{f.Name}}
+              </ion-title>
+            </ion-card-header>
+            <ion-card-content>
+              <p>{{f.Level}}</p>
+              <p>{{f.Gold}}</p>
+              <canvas id={{f.Name}}></canvas>
+            </ion-card-content>
+          </ion-card> -->
+          </div>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-title
+      >Discord Server
+      <a href="https://discord.gg/w5MSPt3" target="_blank">Here</a>. If you find
+      any issues please let me know!</ion-title
+    >
+  </ion-toolbar>
+</ion-footer>

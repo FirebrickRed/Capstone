@@ -6,9 +6,11 @@ import { IonicModule, IonicRouteStrategy } from "@ionic/angular";
 import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 import { StatusBar } from "@ionic-native/status-bar/ngx";
 
-import {ComponentsModule} from './components/components.module';
+import { ComponentsModule } from "./components/components.module";
 import { NewItemModalComponent } from "./new-item-modal/new-item-modal.component";
 import { WorkTimeModalComponent } from "./components/work-time-modal/work-time-modal.component";
+import { ManualInputModalComponent } from "./components/manual-input-modal/manual-input-modal.component";
+import { AnimationModalComponent } from "./components/animation-modal/animation-modal.component";
 import { FormsModule } from "@angular/forms";
 
 import { AngularFireModule } from "@angular/fire";
@@ -24,9 +26,9 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 
 @NgModule({
-  declarations: [AppComponent, NewItemModalComponent, WorkTimeModalComponent],
-  entryComponents: [NewItemModalComponent, WorkTimeModalComponent],
-  imports: [ 
+  declarations: [AppComponent, AnimationModalComponent, NewItemModalComponent, WorkTimeModalComponent, ManualInputModalComponent],
+  entryComponents: [AnimationModalComponent, NewItemModalComponent, WorkTimeModalComponent, ManualInputModalComponent],
+  imports: [
     BrowserModule,
     ComponentsModule,
     IonicModule.forRoot(),
@@ -44,6 +46,6 @@ import { AppComponent } from "./app.component";
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -1,0 +1,61 @@
+.yourInfo {
+  height: 200px;
+}
+
+.transparent {
+  --background: transparent;
+}
+
+.addFriend {
+  display: flex;
+}
+
+.accepted {
+  div {
+    display: flex;
+  }
+}
+
+.pb {
+  --background: #e9b462;
+}
+
+ion-content {
+  --ion-background-color: #635147;
+  ion-card {
+    ion-card-header {
+      ion-card-title {
+        color: #5b342e;
+        font-size: 30px;
+        text-align: center;
+      }
+    }
+    ion-card-content {
+      color: #5b342e;
+      font-size: 15px;
+    }
+    background: #f5deb3;
+    border: 7px double #996515;
+  }
+}
+
+.clickable:hover {
+  background: #f0cf90;
+  border: 3px double #e29b2e;
+}
+
+.notFriends {
+  --background: #d2b48c;
+  border: double 3px #8b4513;
+  border-radius: 5px;
+}
+
+.subHeader {
+  margin: 15px;
+  font-size: 20px;
+  padding: 5px;
+  border-bottom: 3px double #8b4513;
+  width: fit-content;
+  border-left: 3px double #8b4513;
+  border-radius: 5px;
+}

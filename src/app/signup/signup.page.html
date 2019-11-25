@@ -1,19 +1,18 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Sign Up</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content padding>
+  <h1 class='Title'>Sign up!</h1>
+  <div class='error'>
+    {{errorMsg}}
+  </div>
   <ion-item>
-    <ion-label>Email Address</ion-label>
+    <ion-label position='floating'>Email Address</ion-label>
     <ion-input type="text" [(ngModel)]="user.username"></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label>Password</ion-label>
+    <ion-label position='floating'>Password</ion-label>
     <ion-input type="password" [(ngModel)]="user.password"></ion-input>
   </ion-item>
 
   <ion-button (click)="register()">Sign Up</ion-button>
+  <h4 class="footer">Already have an account? <a href="login">Click Here</a></h4>
 </ion-content>

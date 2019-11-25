@@ -1,4 +1,9 @@
-ion-card{
+ion-card {
   width: fit-content;
   float: left;
+  border: 5px double #8b4513;
+  background: #d2b48c;
+  .button-native{
+    background: #996515 !important;
+  }
 }

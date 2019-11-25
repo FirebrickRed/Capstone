@@ -19,6 +19,7 @@
         [(ngModel)]="itemName"
         name="itemName"
         type="text"
+        maxLength="20"
       ></ion-input>
     </ion-item>
     <ion-item>
@@ -28,6 +29,7 @@
         [(ngModel)]="itemDesc"
         name="itemDesc"
         type="text"
+        maxLength="500"
       ></ion-input>
     </ion-item>
     <ion-item>
@@ -40,8 +42,17 @@
       ></ion-datetime>
     </ion-item>
     <ion-item>
+      <ion-label position="floating">Due Time</ion-label>
+      <ion-datetime
+        required
+        [(ngModel)]="itemDueTime"
+        name="itemDueTime"
+        display-format="h:mm A"
+      ></ion-datetime>
+    </ion-item>
+    <ion-item>
       Difficulty
-      <ion-radio-group name='difficulty' [(ngModel)]="difficulty">
+      <ion-radio-group required name="difficulty" [(ngModel)]="difficulty">
         <ion-row>
           <ion-col>
             <ion-item>

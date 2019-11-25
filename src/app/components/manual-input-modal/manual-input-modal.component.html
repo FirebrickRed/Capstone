@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Input Manual Time
+    </ion-title>
+    <ion-button slot="end" (click)="closeModal()">
+      <ion-icon name="close"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-toggle (ionChange)="toggle()"></ion-toggle>
+
+  <div *ngIf="display">
+    <form #form="ngForm">
+      <ion-item>
+        <ion-label position='floating'>Start Time:</ion-label>
+        <ion-datetime
+          required
+          [(ngModel)]="startInput"
+          display-format="h:mm a"
+          name='startInput'
+        ></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label position='floating'>End Time:</ion-label>
+        <ion-datetime
+          required
+          [(ngModel)]="endInput"
+          display-format="h:mm a"
+          name='endInput'
+        ></ion-datetime>
+      </ion-item>
+      <ion-button [disabled]="form.invalid" (click)="submit(true)"
+        >Submit</ion-button
+      >
+    </form>
+  </div>
+  <div *ngIf="!display">
+    <ion-item>
+      <ion-label position="floating">Hours Worked:</ion-label>
+      <ion-input [(ngModel)]="hourInput" type="number"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Minutes Worked:</ion-label>
+      <ion-input [(ngModel)]="minuteInput" type="number"></ion-input>
+    </ion-item>
+    <ion-button (click)="submit(false)">Submit</ion-button>
+  </div>
+</ion-content>

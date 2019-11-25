@@ -72,7 +72,8 @@ export class StoreTabPage implements OnInit {
           Cost: e.payload.doc.data()["Cost"],
           isWearing: e.payload.doc.data()['isWearing'],
           X: e.payload.doc.data()['X'],
-          Y: e.payload.doc.data()['Y']
+          Y: e.payload.doc.data()['Y'],
+          Z: e.payload.doc.data()['Z']
         };
       });
       console.log(this.items);
@@ -110,6 +111,7 @@ export class StoreTabPage implements OnInit {
     record['isWearing'] = false;
     record['X'] = event.x;
     record['Y'] = event.y;
+    record['Z'] = event.z;
     console.log(record);
     this.iService.create_NewCharacterItemWId(record, this.afAuth.auth.currentUser.uid, this.currChar.id, event.id)
       .catch(err => {

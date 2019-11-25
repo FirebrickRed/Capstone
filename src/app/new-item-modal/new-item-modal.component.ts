@@ -14,6 +14,7 @@ export class NewItemModalComponent implements OnInit {
   itemName: string;
   itemDesc: string;
   itemDueDate: Date;
+  itemDueTime: Date;
   difficulty: string;
   toDelete: boolean;
   id: string
@@ -31,6 +32,24 @@ export class NewItemModalComponent implements OnInit {
   }
   addItem(){
     console.log(this.difficulty);
+    let date = new Date(this.itemDueDate);
+    let time = new Date(this.itemDueTime);
+    // console.log('date');
+    // console.log(date);
+    // console.log(date.getUTCFullYear());
+    // console.log(date.getUTCMonth());
+    // console.log(date.getUTCDate());
+    // console.log('time');
+    // console.log(time);
+    // console.log(time.getHours());
+    // console.log(time.getMinutes());
+    let newDueDate = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + 1));
+    //console.log('New DueDate');
+    //console.log(newDueDate);
+    newDueDate.setHours(time.getHours(), time.getMinutes(), 0);
+    // console.log('New DueDate');
+    // console.log(newDueDate);
+    // console.log(`new due date string: ${newDueDate.toString()}`);
     let xp = 0;
     switch(this.difficulty){
       case 'easy':
@@ -47,7 +66,7 @@ export class NewItemModalComponent implements OnInit {
     let record = {};
     record['Name'] = this.itemName;
     record['Desc'] = this.itemDesc;
-    record['DueDate'] = this.itemDueDate;
+    record['DueDate'] = newDueDate.toString();
     record['XP'] = xp;
     this.iService.create_NewItem(record, this.afAuth.auth.currentUser.uid)
       .then(resp => {

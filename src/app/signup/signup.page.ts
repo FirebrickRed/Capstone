@@ -14,6 +14,7 @@ export class User{
 })
 export class SignupPage implements OnInit {
   public user: User = new User();
+  errorMsg: string;
 
   constructor(public navCtrl: NavController,public afAuth: AngularFireAuth) { 
     console.log("You will never reach this");
@@ -28,6 +29,17 @@ export class SignupPage implements OnInit {
         this.navCtrl.navigateRoot('/character-creation');
       }, err => {
         console.log(err);
+        switch(err.code){
+          case 'auth/invalid-email':
+            this.errorMsg = "Not a valid email. Please try again using '@' and '.'";
+            break;
+          case 'auth/weak-password':
+            this.errorMsg = 'Your password should be at least 6 characters, I also recommend adding in special characters or number for better passwords.';
+            break;
+          case 'auth/email-already-in-use':
+            this.errorMsg = 'There is already an email account active with this application.';
+            break;
+        }
       })
   }
 

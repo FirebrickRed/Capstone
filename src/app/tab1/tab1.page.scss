@@ -2,3 +2,20 @@
   max-height: 35vh;
   overflow: hidden;
 }
+
+ion-card {
+  ion-card-header {
+    ion-card-title {
+      color: #5b342e;
+      font-size: 30px;
+      text-align: center;
+    }
+  }
+  ion-card-content {
+    color: #5b342e;
+    font-size: 15px;
+    --background: #f5deb3;
+  }
+  background: #f5deb3;
+  border: 7px double #996515;
+}

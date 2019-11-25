@@ -1,18 +1,26 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>storeTab</ion-title>
+    <ion-title>Tavern</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        Your Gold: {{currChar?.Gold}}
+      </ion-card-title>
+    </ion-card-header>
+  </ion-card>
   <div *ngFor="let i of buyables">
     <app-store-item-card
       name="{{ i.Name }}"
       canvasName="{{ i.CanvasName }}"
       id="{{ i.id }}"
-      cost="{{ i.Cost }}"
-      X='{{i.X}}'
-      Y='{{i.Y}}'
+      [cost]="i.Cost"
+      [X]='i.X'
+      [Y]='i.Y'
+      [Z]='i.Z'
       CurrCharGold='{{currChar.Gold}}'
       (boughtItem)='bought($event)'
     ></app-store-item-card>

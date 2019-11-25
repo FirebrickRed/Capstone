@@ -16,7 +16,7 @@
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
-@import '~@ionic/angular/css/display.css';
+@import "~@ionic/angular/css/display.css";
 
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
@@ -26,3 +26,13 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 @import "~@mobiscroll/angular/dist/css/mobiscroll.scss";
+
+ion-toolbar {
+  border-bottom: 7px double #996515;
+  background: #f5deb3;
+  color: #5b342e;
+}
+
+ion-content {
+  --ion-background-color: #635147;
+}

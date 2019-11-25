@@ -34,6 +34,7 @@ const routes: Routes = [
     loadChildren: () => import('./components/work-time-modal/work-time-modal.component')
   },
   { path: 'character-page', loadChildren: './character-page/character-page.module#CharacterPagePageModule' },
+  { path: 'first-slide', loadChildren: './Presentation/first-slide/first-slide.module#FirstSlidePageModule' },
   
 ];
 @NgModule({
