@@ -3,11 +3,14 @@
     <ion-title>
       Quest Book
     </ion-title>
-    <ion-button slot="end" (click)="openAnimation()">Floss</ion-button>
+    <!-- <ion-button slot="end" (click)="Canvas()">Canvas</ion-button> -->
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
+  <ion-button (click)="adventureTime()" expand="block" color="secondary">
+    Go On Adventure!
+  </ion-button>
   <ion-button (click)="addItem()" expand="block" color="primary">
     <ion-icon name="add-circle-outline"></ion-icon>
     Add New Quest
@@ -22,9 +25,9 @@
           class="center"
         >
           <ion-card-title class="center">{{ item.Name }}</ion-card-title>
-          <ion-card-subtitle class="center">{{
-            item.DueDate | date
-          }}</ion-card-subtitle>
+          <ion-card-subtitle class="center"
+            >{{ item.DueDate | date }}</ion-card-subtitle
+          >
           <ion-card-subtitle *ngIf="item.displayMore" class="center"
             >Experience: {{ item.XP }}</ion-card-subtitle
           >
@@ -62,7 +65,11 @@
   </div>
 
   <ion-card>
-    <ion-card-header class="clickable" tappable (click)="showCompleted = !showCompleted">
+    <ion-card-header
+      class="clickable"
+      tappable
+      (click)="showCompleted = !showCompleted"
+    >
       <ion-card-title class="center">Completed Quests</ion-card-title>
     </ion-card-header>
 
@@ -71,9 +78,9 @@
         <ion-card>
           <ion-card-header class="center">
             <ion-title class="center">{{ ci.Name }}</ion-title>
-            <ion-card-subtitle class="center">{{
-              ci.DueDate | date
-            }}</ion-card-subtitle>
+            <ion-card-subtitle class="center"
+              >{{ ci.DueDate | date }}</ion-card-subtitle
+            >
             <ion-button
               size="small"
               color="danger"

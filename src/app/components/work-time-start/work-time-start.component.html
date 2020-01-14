@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Adventure Time!
+    </ion-title>
+    <ion-button slot="end" (click)="closeModal()">
+      <ion-icon name="close"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="display">
+    <div class='SeperateButton'>
+      <ion-button (click)="endlessTimerToDisplay()">
+        Endless Timer
+      </ion-button>
+    </div>
+    <div class='SeperateButton'>
+      <ion-button (click)="countDownTimer()">
+        Countdown Timer
+      </ion-button>
+    </div>
+    <div class='SeperateButton'>
+      <ion-button (click)="manualInput()">
+        Manual Input
+      </ion-button>
+    </div>
+  </div>
+
+
+
+  <div *ngIf="endlessTimerDisplay">
+    <ion-button *ngIf=endlessBack (click)='back()'>Back</ion-button>
+    <h1>Endless Timer</h1>
+    <h3>
+      Work Until You feel like you have worked enough. You are able to take 5
+      minute breaks after working for about 20 minutes.
+    </h3>
+    <div>Began at: {{ startTime | date: "shortTime" }}</div>
+    <div>Ended at: {{ endTime | date: "shortTime" }}</div>
+    <div>Breaks Taken: {{ breakcounter }}</div>
+    <ion-button *ngIf="!endlessDisplay" (click)="setEndlessTimer()"
+      >Start</ion-button
+    >
+    <div *ngIf="endlessDisplay">
+      <ion-button *ngIf="duringBreak" (click)="endEndlessTimer()"
+        >Stop</ion-button
+      >
+      <ion-button *ngIf="duringBreak" (click)="break()">5 min Break</ion-button>
+      <div *ngIf="breakcounterDisplay">
+        <countdown
+          [config]="breaktimer"
+          (event)="breakOver($event)"
+        ></countdown>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="countdownTimerDisplay">
+    <h1>Count Down Timer</h1>
+    <h3>You've set how long you want to work for, now do some good work</h3>
+    <countdown [config]="timer" (event)="timerDone($event)"></countdown>
+  </div>
+</ion-content>

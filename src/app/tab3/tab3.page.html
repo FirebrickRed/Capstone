@@ -36,7 +36,7 @@
   <br />
   <br />
   Difficulty rage: [.5, 1, 1.5] -->
-  <div *ngIf='display'>
+  <div *ngIf="display">
     <ion-button (click)="endlessTimerToDisplay()">
       Endless Timer
     </ion-button>
@@ -50,20 +50,26 @@
 
   <div *ngIf="endlessTimerDisplay">
     <h1>Endless Timer</h1>
-    <h3>Work Until You feel like you have worked enough. You are able to take 5 minute breaks after working for about 20 minutes.</h3>
+    <h3>
+      Work Until You feel like you have worked enough. You are able to take 5
+      minute breaks after working for about 20 minutes.
+    </h3>
     <div>Began at: {{ startTime | date: "shortTime" }}</div>
     <div>Ended at: {{ endTime | date: "shortTime" }}</div>
     <div>Breaks Taken: {{breakcounter}}</div>
     <ion-button *ngIf="!endlessDisplay" (click)="setEndlessTimer()"
       >Start</ion-button
     >
-    <div *ngIf='endlessDisplay'>
-      <ion-button *ngIf='duringBreak' (click)="endEndlessTimer()"
+    <div *ngIf="endlessDisplay">
+      <ion-button *ngIf="duringBreak" (click)="endEndlessTimer()"
         >Stop</ion-button
       >
-      <ion-button *ngIf='duringBreak' (click)='break()'>5 min Break</ion-button>
-      <div *ngIf='breakcounterDisplay'>
-        <countdown [config]='breaktimer' (event)='breakOver($event)'></countdown>
+      <ion-button *ngIf="duringBreak" (click)="break()">5 min Break</ion-button>
+      <div *ngIf="breakcounterDisplay">
+        <countdown
+          [config]="breaktimer"
+          (event)="breakOver($event)"
+        ></countdown>
       </div>
     </div>
   </div>

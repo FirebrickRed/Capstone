@@ -111,7 +111,7 @@ export class Tab3Page {
           name: "med",
           label: "Normal Work Level",
           value: 1,
-          checked: false
+          checked: true
         },
         {
           type: "radio",

@@ -8,7 +8,7 @@
 <ion-content padding>
   <ion-card class="yourInfo">
     <ion-row>
-      <ion-col size="2">
+      <ion-col size="4">
         <ion-avatar padding>
           <canvas
             style="display: block"
@@ -77,10 +77,10 @@
         ></ion-button> -->
     </ion-card-header>
     <ion-card-content *ngIf="showingFriends">
-      <h4>
+      <h4 id=friendcode>
         Your friend code:
         <span id="textToCopy">{{afAuth.auth.currentUser.uid}}</span
-        ><ion-icon name="copy" (click)="copy()"></ion-icon>
+        ><ion-icon id=click name="copy" (click)="copy()"></ion-icon>
       </h4>
       <div class="addFriend">
         <ion-item class="transparent">

@@ -6,7 +6,9 @@ import {
   AlertController
 } from "@ionic/angular";
 import { NewItemModalComponent } from "../new-item-modal/new-item-modal.component";
+import { WorkTimeStartComponent } from "../components/work-time-start/work-time-start.component";
 import { AnimationModalComponent } from "../components/animation-modal/animation-modal.component";
+import { CanvasModalComponent } from "../components/canvas-modal/canvas-modal.component";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { ItemService } from "../services/item.service";
 import { CountdownConfig } from "ngx-countdown";
@@ -63,26 +65,26 @@ export class Tab2Page {
         console.log(this.items);
         let counter = 0;
         this.items.forEach(element => {
-          console.log('element')
-          console.log(element);
-          console.log(element.DueDate);
-          console.log('date')
-          console.log(Date());
+          // console.log('element')
+          // console.log(element);
+          // console.log(element.DueDate);
+          // console.log('date')
+          // console.log(Date());
           let today = new Date();
           let date = new Date(element.DueDate);
-          console.log('duedate')
-          console.log(date );
+          // console.log('duedate')
+          // console.log(date );
           let difference = date.getTime() - today.getTime();
-          console.log('diff: ' + difference);
-          console.log(difference);
-          console.log(difference/1000);
+          // console.log('diff: ' + difference);
+          // console.log(difference);
+          // console.log(difference/1000);
           let mins = difference / 60000;
-          console.log('Hours: ' + mins / 60);
+          //console.log('Hours: ' + mins / 60);
           let hours = mins / 60;
           //console.log('days: ' + hours / 24);
           let days = hours / 24;
 
-          console.log("days: " + days);
+          //console.log("days: " + days);
           // this.timer = {
           //   leftTime: difference,
           //   format: "HH:mm"
@@ -120,7 +122,7 @@ export class Tab2Page {
 
           counter++;
         });
-        console.log(this.items);
+        //console.log(this.items);
       });
     this.iService
       .read_Character(this.afAuth.auth.currentUser.uid)
@@ -137,6 +139,26 @@ export class Tab2Page {
         });
         this.currChar = this.currChar[0];
       });
+  }
+
+  async adventureTime(){
+    const modal = await this.modalCtrl.create({
+      component: WorkTimeStartComponent,
+      backdropDismiss: false
+    })
+    modal.onDidDismiss().then(async data => {
+      console.log(`Before Character gold: ${this.currChar.Gold}`)
+      this.currChar.Gold += data.data.gold;
+      console.log(`After Character gold: ${this.currChar.Gold}`)
+      this.iService.update_Character(this.afAuth.auth.currentUser.uid, this.currChar.id, this.currChar);
+      let toast = this.toastCtrl.create({
+        message: `Congrats! You earned ${data.data.gold} Gold!`,
+        duration: 3000,
+        position: "top"
+      });
+      (await toast).present();
+    })
+    modal.present();
   }
 
   async delete(id) {
@@ -213,7 +235,8 @@ export class Tab2Page {
         difficulty: difficulty,
         itemDueDate: item.DueDate,
         toDelete: true,
-        id: item.id
+        id: item.id,
+        itemDueTime: new Date(item.DueDate).toISOString()
       }
     });
     modal.present();
@@ -290,6 +313,13 @@ export class Tab2Page {
   async openAnimation() {
     const modal = await this.modalCtrl.create({
       component: AnimationModalComponent
+    });
+    modal.present();
+  }
+
+  async Canvas(){
+    const modal = await this.modalCtrl.create({
+      component: CanvasModalComponent
     });
     modal.present();
   }

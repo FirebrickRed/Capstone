@@ -1,0 +1,28 @@
+#canvas{
+  width:100%;
+  text-align: center;
+}
+
+h3 {
+  animation: pulse 2s infinite;
+  text-align: center;
+  font-size: 45px;
+}
+
+@keyframes pulse {
+  0% {
+    color: #0f0;
+  }
+  25%{
+    color: #ff0;
+  }
+  50%{
+    color: #f00;
+  }
+  75%{
+    color: #ff0;
+  }
+  100% {
+    color: #0f0;
+  }
+}

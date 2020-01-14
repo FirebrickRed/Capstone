@@ -13,6 +13,7 @@
 .accepted {
   div {
     display: flex;
+    flex-flow: wrap;
   }
 }
 
@@ -58,4 +59,12 @@ ion-content {
   width: fit-content;
   border-left: 3px double #8b4513;
   border-radius: 5px;
+}
+
+#click:hover{
+  cursor: pointer;
+}
+
+#friendcode{
+  font: 20px;
 }
