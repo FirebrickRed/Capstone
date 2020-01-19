@@ -242,6 +242,13 @@ export class Tab2Page {
     modal.present();
   }
 
+  async animationTest(){
+    let modal = await this.modalCtrl.create({
+      component: AnimationModalComponent
+    });
+    modal.present();
+  }
+
   async complete(id, xp) {
     console.log("completed!");
 

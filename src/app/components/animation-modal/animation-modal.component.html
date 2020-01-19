@@ -9,7 +9,14 @@
 
 <ion-content padding>
   <h3>You Leveled Up!</h3>
-  <div id='canvas'>
-    <canvas padding id='floss' width="100" height="200"></canvas>
+  <div id="canvas">
+    <ion-toggle (ionChange)="isflossing = !isflossing"></ion-toggle>
+    <div *ngIf="isflossing">
+      <!-- <canvas padding id='floss' width="100" height="200"></canvas> -->
+      <app-animation Name="Floss" [Count]="8" [Animations]="7"></app-animation>
+    </div>
+    <div *ngIf="!isflossing">
+      <app-animation Name="Dab" [Count]="15" [Animations]="14"></app-animation>
+    </div>
   </div>
 </ion-content>
